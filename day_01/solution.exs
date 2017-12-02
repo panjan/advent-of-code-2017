@@ -1,8 +1,8 @@
-{ :ok, input } = File.read("day_01/input.txt")
+{:ok, input} = File.read("day_01/input.txt")
 defmodule Captcha do
   def solve(_prev, []), do: 0
   def solve(prev, [head|tail]) do
-    if (prev==head), do: prev + solve(head, tail), else: solve(head, tail)
+    if prev == head, do: prev + solve(head, tail), else: solve(head, tail)
   end
 end
 
