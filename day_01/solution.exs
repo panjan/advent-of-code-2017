@@ -1,16 +1,19 @@
 
 defmodule Captcha do
-  def solve(_prev, []), do: 0
-  def solve(prev, [head|tail]) do
-    if prev == head, do: prev + solve(head, tail), else: solve(head, tail)
+  def solve(list, rotation) do
+    {first_half, second_half} = Enum.split(list, rotation)
+    rotated_list = second_half ++ first_half
+    [list, rotated_list]
+    |> Enum.zip
+    |> Enum.filter(fn({x,y}) -> x == y end)
+    |> Enum.map(fn({x,_}) -> x end)
+    |> Enum.sum
   end
-  def first_part do
-    input_ints = parse_input()
-    circular_list = input_ints ++ [List.first(input_ints)]
-    Captcha.solve(0, circular_list)
+  def first_part(list) do
+    Captcha.solve(list, 1)
   end
-  def second_part do
-
+  def second_part(list) do
+    Captcha.solve(list, div(length(list),2))
   end
   def parse_input do
     {:ok, input} = File.read("day_01/input.txt")
@@ -21,4 +24,6 @@ defmodule Captcha do
   end
 end
 
-IO.puts(Captcha.first_part)
+input = Captcha.parse_input()
+IO.puts("First part: #{Captcha.first_part(input)}")
+IO.puts("Second part: #{Captcha.second_part(input)}")
