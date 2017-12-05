@@ -24,9 +24,8 @@ defmodule Checksum do
   end
 end
 
-first_part = Checksum.parse_input |> Checksum.solve_part_1
+input = Checksum.parse_input
 IO.puts("First part:")
-IO.inspect(first_part)
-second_part = Checksum.parse_input |> Checksum.solve_part_2
+IO.inspect(Checksum.solve_part_1(input))
 IO.puts("Second part:")
-IO.inspect(second_part)
+IO.inspect(Checksum.solve_part_2(input))
