@@ -22,7 +22,7 @@ defmodule Checksum do
   def solve_part_2(lines) do
     lines
     |> Enum.map(&process_line/1)
-    |> Enum.map(&Enum.at(&1, 0))
+    |> List.flatten
     |> Enum.sum
   end
 
