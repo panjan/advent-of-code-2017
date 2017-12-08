@@ -20,7 +20,18 @@ defmodule Checksum do
   end
 
   def solve_part_2(lines) do
-    "foo"
+    lines
+    |> Enum.map(&process_line/1)
+    |> Enum.map(&Enum.at(&1, 0))
+    |> Enum.sum
+  end
+
+  def process_line(line) do
+    for a <- line,
+        b <- line,
+        a != b,
+        rem(a, b) == 0,
+        do: a / b
   end
 end
 
