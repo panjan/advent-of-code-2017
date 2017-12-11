@@ -12,3 +12,4 @@ defmodule Spiral do
 end
 
 IO.puts("First part: #{Spiral.solve(277678)}")
+IO.puts("Second part: http://oeis.org/A141481")
