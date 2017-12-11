@@ -1,12 +1,14 @@
 defmodule Passphrases do
-  def solve do
-    passphrases = parse_input()
+  def solve_part_1(passphrases) do
     passphrases
-    |> Enum.filter(fn(pass) -> valid?(pass) end)
+    |> Enum.filter(fn(pass) -> duplicate_free?(pass) end)
     |> Enum.count
   end
 
-  def valid?(words) do
+  def solve_part_2(passphrases) do
+  end
+
+  def duplicate_free?(words) do
     duplicates = words -- Enum.uniq(words)
     Enum.count(duplicates) == 0
   end
@@ -19,4 +21,6 @@ defmodule Passphrases do
   end
 end
 
-IO.puts("First part: #{Passphrases.solve}")
+passphrases = Passphrases.parse_input
+IO.puts("First part: #{Passphrases.solve_part_1(passphrases)}")
+IO.puts("Second part: #{Passphrases.solve_part_2(passphrases)}")
