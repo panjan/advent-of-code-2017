@@ -1,21 +1,14 @@
 defmodule Spiral do
-  def solve(number, size, {x,y}) do
-    cond do
-      number == 1
-        -> abs(x) + abs(y)
-      x == size && y == -size
-        -> solve(number - 1, size + 1, {x+1,y})
-      y == -size
-        -> solve(number - 1, size, {x+1,y})
-      x == -size
-        -> solve(number - 1, size, {x,y-1})
-      y == size
-        -> solve(number - 1, size, {x-1,y})
-      x == size
-        -> solve(number - 1, size, {x,y+1})
-    end
+  def solve(number) do
+    odd_numbers = Stream.iterate(1, &(&1+1))
+    |> Stream.filter(fn(x) -> rem(x, 2) == 1 end)
+    |> Enum.take_while(fn(x) -> x*x < number end)
+    last = Enum.at(odd_numbers, -1)
+    distance_from_power = number - last*last
+    center = round(last/2)
+    distance_from_center = rem(distance_from_power, center)
+    Enum.count(odd_numbers) + distance_from_center
   end
 end
-IO.puts("First part:")
-IO.inspect(Spiral.solve(277678, 0, {0, 0}))
-IO.puts("Second part:")
+
+IO.puts("First part: #{Spiral.solve(277678)}")
