@@ -1,14 +1,14 @@
 defmodule Passphrases do
   def solve_part_1(passphrases) do
     passphrases
-    |> Enum.filter(fn(pass) -> duplicate_free?(pass) end)
+    |> Enum.filter(&duplicate_free?/1)
     |> Enum.count
   end
 
   def solve_part_2(passphrases) do
     passphrases
-    |> Enum.map(fn(pass) -> sort_chars(pass) end)
-    |> Enum.filter(fn(pass) -> duplicate_free?(pass) end)
+    |> Enum.map(&sort_chars/1)
+    |> Enum.filter(&duplicate_free?/1)
     |> Enum.count
   end
 
@@ -18,7 +18,9 @@ defmodule Passphrases do
   end
 
   def sort_chars(password) do
-    password |> Enum.map(fn(word) -> Enum.sort(String.graphemes(word)) end)
+    password
+    |> Enum.map(&String.graphemes/1)
+    |> Enum.map(&Enum.sort/1)
   end
 
   def parse_input do
